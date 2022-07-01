@@ -1,6 +1,6 @@
 L = 1;// channel length
 H = 1; // height
-h=0.02;
+h=0.1;
 
 Point(1) = {0,0,0,h};
 Point(2) = {L,0,0,h};

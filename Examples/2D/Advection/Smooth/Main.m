@@ -22,21 +22,21 @@ RK               = 'LS54';
 %Indicator       = 'TVB'; TVBM = 10; TVBnu = 1.5;
 Indicator       = 'NONE';
 Filter_const    = true;
-nn_model        = 'MLP_v1';
+nn_model        = '';
 Limiter         = 'NONE';
 
 
 %Set viscosity model
-%Visc_model = 'NONE';
-nn_visc_model = 'MLP_visc';
-Visc_model='EV'; c_E=1; c_max=0.25;
+Visc_model = 'NONE';
+nn_visc_model = '';
+% Visc_model='EV'; c_E=1; c_max=0.25;
 %Visc_model='MDH'; c_A=2; c_k=0.4; c_max=0.8;
 %Visc_model='MDA'; c_max=0.8;
 %Visc_model='NN';
 
 
 % Mesh file
-msh_file        = 'square_trans.msh';
+msh_file        = 'square_trans.10.v2.msh';
 
 % Output flags
 plot_iter  = 50;
@@ -44,7 +44,7 @@ show_plot  = true;
 xran       = [0,1]; 
 yran       = [0,1];
 clines     = linspace(0,2,30);
-save_soln  = true;
+save_soln  = false;
 
 % Call main driver
 ScalarDriver2D;
