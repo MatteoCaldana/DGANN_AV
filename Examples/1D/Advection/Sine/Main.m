@@ -2,7 +2,7 @@ clc
 clear all
 close all
 
-
+tic
 KK = [10, 20, 40, 80, 160];
 NN = [1, 2, 3];
 ERROR_TABLE_L2 = zeros(length(KK), length(NN));
@@ -75,7 +75,7 @@ convergence =  @(x) diff(log(x)) ./ -diff(log(KK))';
 convergence(ERROR_TABLE_L2)
 convergence(ERROR_TABLE_Loo)
 convergence(ERROR_TABLE_PAPER)
-
+timed = toc;
 
 figure
 loglog(KK, ERROR_TABLE_L2, '-o')

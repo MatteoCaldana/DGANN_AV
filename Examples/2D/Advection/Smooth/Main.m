@@ -39,8 +39,8 @@ nn_visc_model = '';
 msh_file        = 'square_trans.10.v2.msh';
 
 % Output flags
-plot_iter  = 50;
-show_plot  = true;
+plot_iter  = 1e6;
+show_plot  = false;
 xran       = [0,1]; 
 yran       = [0,1];
 clines     = linspace(0,2,30);
@@ -48,4 +48,11 @@ save_soln  = false;
 
 % Call main driver
 ScalarDriver2D;
+
+sol = IC(Mesh.x - FinalTime, Mesh.y - FinalTime);
+
+figure
+scatter3(Mesh.x(:), Mesh.y(:), Q_save{end}(:))
+hold on
+scatter3(Mesh.x(:), Mesh.y(:), sol(:), 'x')
 

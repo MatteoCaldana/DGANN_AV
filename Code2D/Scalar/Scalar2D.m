@@ -19,7 +19,8 @@ if(Output.show_plot)
 end
 
 % Initializing save arrays
-Q_save     = cell(1,Problem.tstamps+2); % Save at approximated final time and actual final time
+Q_save     = {};
+
 ind_save   = cell(1,Problem.tstamps+2); % Save at approximated final time and actual final time
 visc_save   = cell(1,Problem.tstamps+2); % Save at approximated final time and actual final time
 ptc_hist   = [];
@@ -72,8 +73,8 @@ if(Output.show_plot)
     pause(0.1);
 end
 
+Q_save{end+1}   = Q;
 if(Output.save_soln)
-    Q_save{1,stime}   = Q;
     ind_save{1,stime} = ind;
     ptc_hist(tstep+1)   = perc_tcells;
     t_hist(tstep+1)     = time;
@@ -245,19 +246,17 @@ while (time<Problem.FinalTime)
         maxvisc_hist(tstep+1) = maxvisc;
         t_hist(tstep+1)   = time;
         if(abs(time-Save_times(stime))< 0.51*dt && stime <= length(Save_times)-1)
-            Q_save{1,stime}   = Q;
             ind_save{1,stime} = ind;
             visc_save{1,stime} = mu_vals;
             Save_times(stime) = time;
             stime             = stime + 1;
         end
     end
-    
 
+    Q_save{end+1}   = Q;
 end
 
 if(Output.save_soln)
-    Q_save{1,stime}   = Q;
     ind_save{1,stime} = ind;
     visc_save{1,stime} = mu_vals;
 end
