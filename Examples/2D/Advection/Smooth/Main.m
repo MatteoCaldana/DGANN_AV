@@ -47,8 +47,9 @@ clines     = linspace(0,2,30);
 save_soln  = false;
 
 % Call main driver
+tic
 ScalarDriver2D;
-
+toc
 sol = IC(Mesh.x - FinalTime, Mesh.y - FinalTime);
 
 figure
