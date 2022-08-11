@@ -8,8 +8,8 @@ test_name         = 'Smooth';
 InitialCond       = @IC;
 BC_cond           = {100001,'P'; 100002,'P'; 100003,'P'; 100004,'P'};
 
-FinalTime        = 0.2;
-CFL              = 0.2;
+FinalTime        = 0.5;
+CFL              = 0.3;
 tstamps          = 1;
 RK               = 'SSP3';
 
@@ -19,7 +19,7 @@ Filter_const    = true;
 Limiter         = 'NONE';
 
 %Set viscosity model
-Visc_model = 'EV';
+Visc_model = 'NONE';
 c_E=1; c_max=0.25;
 
 % Output flags
@@ -30,9 +30,9 @@ yran       = [0,1];
 clines     = linspace(0,2,30);
 save_soln  = false;
 
-
-NN = [1];
-KK = [10];
+tic
+NN = [1, 2];
+KK = [10, 20, 40];
 ERROR_TABLE_l2 = zeros(length(KK), length(NN));
 ERROR_TABLE_loo = zeros(length(KK), length(NN));
 ERROR_TABLE_L2 = zeros(length(KK), length(NN));
@@ -53,9 +53,10 @@ for iii = 1:length(KK)
         paper_norm = @(e) sqrt(sum((e' * Mesh.MassMatrix) .* e', 'all'));
         ERROR_TABLE_L2(iii, jjj) = paper_norm(e)/paper_norm(Qex);
 
-        save_simulation;
+        %save_simulation;
     end
 end
+toc
 
 convergence =  @(x) diff(log(x)) ./ -diff(log(KK))';
 

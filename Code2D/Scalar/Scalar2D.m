@@ -1,4 +1,4 @@
-function [Q_save,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,Save_times] = Scalar2D(Q,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output)
+function [TSteps,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,Save_times] = Scalar2D(Q,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output)
 
 % function Q = Scalar2D(Q)
 % Purpose  : Integrate 2D Scalar equation using a RK scheme
@@ -19,7 +19,7 @@ if(Output.show_plot)
 end
 
 % Initializing save arrays
-Q_save     = {};
+TSteps     = {};
 
 ind_save   = cell(1,Problem.tstamps+2); % Save at approximated final time and actual final time
 visc_save   = cell(1,Problem.tstamps+2); % Save at approximated final time and actual final time
@@ -73,7 +73,6 @@ if(Output.show_plot)
     pause(0.1);
 end
 
-Q_save{end+1}   = Q;
 if(Output.save_soln)
     ind_save{1,stime} = ind;
     ptc_hist(tstep+1)   = perc_tcells;
@@ -253,7 +252,7 @@ while (time<Problem.FinalTime)
         end
     end
 
-    Q_save{end+1}   = Q;
+    TSteps{end+1} = struct('u', Q, 'dt', dt, 'tstep', tstep, 'time', time, 'mu_piece', mu_piece, 'mu_vals', mu_vals);
 end
 
 if(Output.save_soln)

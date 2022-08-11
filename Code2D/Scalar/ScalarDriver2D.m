@@ -47,7 +47,7 @@ Create_sfile_base2D;
 fprintf('... starting main solve\n')
 
 tic;
-[Q_save,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,Save_times] = Scalar2D(Q,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output);
+[TSteps,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,Save_times] = Scalar2D(Q,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output);
 sim_time = toc;
     
 %%

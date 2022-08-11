@@ -24,6 +24,8 @@ Mesh.M1D_3 = inv(V1D*V1D');
 Emat(Mesh.Fmask(:,3),2*Mesh.Nfp+1:3*Mesh.Nfp) = Mesh.M1D_3;
 Mesh.facemid3 = Vmid1D(1,:)/V1D;
 
+Mesh.Vmid1D = Vmid1D;
+Mesh.Emat = Emat;
 % inv(mass matrix)*\I_n (L_i,L_j)_{edge_n}
 Mesh.LIFT = Mesh.V*(Mesh.V'*Emat);
 

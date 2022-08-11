@@ -50,10 +50,5 @@ save_soln  = false;
 tic
 ScalarDriver2D;
 toc
-sol = IC(Mesh.x - FinalTime, Mesh.y - FinalTime);
-
-figure
-scatter3(Mesh.x(:), Mesh.y(:), Q_save{end}(:))
-hold on
-scatter3(Mesh.x(:), Mesh.y(:), sol(:), 'x')
+git 
 

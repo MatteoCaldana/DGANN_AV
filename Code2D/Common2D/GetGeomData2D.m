@@ -96,6 +96,10 @@ vcy  = [yv1+yv2+yv3; yv1+yv2+yvn1; yv2+yv3+yvn2; yv3+yv1+yvn3]/3;
 % skew1        = zeros(3,K);
 % skew2        = zeros(3,K);
 Mesh.patch_alphas = zeros(3,3,Mesh.K);
+Mesh.patch_alphasA = zeros(3,2,2,Mesh.K);
+Mesh.patch_alphasB = zeros(3,2,Mesh.K);
+
+
 eps = 1e-12;
 for i=1:Mesh.K
     % Vector of centroid of central triangle to face mid-points  
@@ -113,7 +117,7 @@ for i=1:Mesh.K
     for j=1:3
         A = [c2cx(Kind(j)) , c2cx(Kind(j+1)); c2cy(Kind(j)) , c2cy(Kind(j+1))];
         b = [cfx(Kind(j)) ; cfy(Kind(j))];
-        alphas = A\b;
+        alphas = solve2x2(A, b);
         if(alphas(1) < -eps || alphas(2) < -eps)
 %             if(~(alphas(1) >= -eps && alphas(2) >= -eps))
 %                 A
@@ -121,13 +125,15 @@ for i=1:Mesh.K
 %                 alphas
 %             end
             A = [c2cx(Kind(j)) , c2cx(Kind(j+2)); c2cy(Kind(j)) , c2cy(Kind(j+2))];
-            alphas = A\b;
+            alphas = solve2x2(A, b);
             assert((alphas(1) >= -eps & alphas(2) >= -eps),...
                 'The mesh traingulation is not appropriate');
             Mesh.patch_alphas(j,:,i) = [alphas;Kind(j+2)];
         else
             Mesh.patch_alphas(j,:,i) = [alphas;Kind(j+1)];
         end
+        Mesh.patch_alphasA(j,:,:,i) = A;
+        Mesh.patch_alphasB(j,:,i) = b;
     end
 
     % The two skew factors
@@ -150,6 +156,26 @@ for i=1:3
     [idM, idP] = find(sqrt(abs(D))<eps);
     Mesh.MMAP(:,i) = idM;
 end
+
+Mesh.xv1 = xv1;
+Mesh.xv2 = xv2;
+Mesh.xv3 = xv3;
+Mesh.yv1 = yv1;
+Mesh.yv2 = yv2;
+Mesh.yv3 = yv3;
+Mesh.fnx = fnx;
+Mesh.fny = fny;
+Mesh.fL = fL;
+Mesh.fcx = fcx;
+Mesh.fcy = fcy;
+Mesh.xvn1 = xvn1;
+Mesh.xvn2 = xvn2;
+Mesh.xvn3 = xvn3;
+Mesh.yvn1 = yvn1;
+Mesh.yvn2 = yvn2;
+Mesh.yvn3 = yvn3;
+Mesh.vcx = vcx;
+Mesh.vcy = vcy;
 
 
 
