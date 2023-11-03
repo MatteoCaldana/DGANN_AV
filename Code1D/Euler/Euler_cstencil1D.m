@@ -17,15 +17,15 @@ Ener_ext  = q(:,:,3);
 % Compute cell averages
 % rhoh = invV*rho_ext; rhoh(2:Np,:)=0;
 % rhoa = V*rhoh; rhoc = rhoa(1,:);
-rhoc = Mesh.AVG1D*rho_ext;
+rhoc = Mesh.avg1D*rho_ext;
 
 % mmth = invV*mmt_ext; mmth(2:Np,:)=0;
 % mmta = V*mmth; mmtc = mmta(1,:);
-mmtc = Mesh.AVG1D*mmt_ext;
+mmtc = Mesh.avg1D*mmt_ext;
 
 % Enerh = invV*Ener_ext; Enerh(2:Np,:)=0;
 % Enera = V*Enerh; Enerc = Enera(1,:);
-Enerc = Mesh.AVG1D*Ener_ext;
+Enerc = Mesh.avg1D*Ener_ext;
 
 % Compute characterisic variables
 if(~isempty(ind))

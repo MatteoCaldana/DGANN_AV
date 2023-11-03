@@ -22,7 +22,7 @@ else
         
         % getting cell averages
         %uavg = uh; uavg(2:Np,:)=0; uavg = V*uavg; v = uavg(1,:);
-        v = Mesh.AVG1D*u;
+        v = Mesh.avg1D*u;
         vk = v(ind_k); vkm1 = v(ind_km1); vkp1 = v(ind_kp1);
         
         % create piecewise linear solution for limiting on specified elements

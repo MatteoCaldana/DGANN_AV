@@ -7,4 +7,3 @@ entropy=@(q) q(:,:,1)/(gas_gamma-1).*log(pre(q)./(q(:,:,1).^gas_gamma));
 ent_flux=@(q) q(:,:,2)./q(:,:,1).*entropy(q);
 
 return
-

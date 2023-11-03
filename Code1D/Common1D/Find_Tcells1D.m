@@ -8,7 +8,7 @@ function ind = Find_Tcells1D(u,Mesh,Limit,Net)
 
 % Compute cell averages
 %uh = invV*u; uh(2:Np,:)=0; uavg = V*uh; v = uavg(1,:);
-v = Mesh.AVG1D*u;
+v = Mesh.avg1D*u;
 
 eps0=1.0e-8;
 
@@ -40,10 +40,10 @@ elseif(strcmp(Limit.Indicator,'NN'))
 %     for i = 1:K % Need to replace loop by faster algorithm
 %         upl = ProjectFromLeft1D(:,:,i)*u(:,i);
 %         %uhl = invV*upl; uhl(2:end) = 0; ulavg = V*uhl; vl = ulavg(1);
-%         vl  = AVG1D*upl;
+%         vl  = avg1D*upl;
 %         upr = ProjectFromRight1D(:,:,i)*u(:,i+2);
 %         %uhr = invV*upr; uhr(2:end) = 0; uravg = V*uhr; vr = uravg(1);
-%         vr  = AVG1D*upr;
+%         vr  = avg1D*upr;
 % %         figure(100)
 % %         plot(x(:,i),u(:,i+1),'r--o')
 % %         hold all

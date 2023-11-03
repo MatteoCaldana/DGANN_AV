@@ -41,7 +41,7 @@ end
 
 % Solve Problem
 fprintf('... starting main solve\n')
-[u] = Scalar1D(u,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output);
+[u, memory] = Scalar1D(u,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output);
 
 %%
 

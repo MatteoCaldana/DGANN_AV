@@ -32,10 +32,6 @@ switch Viscosity.model
         mu_max=Viscosity.c_max*Mesh.hK/Mesh.N.*local_wave_sp;
         
         R=(E_new-E_old)/dt+(Mesh.Dr*F_old+Mesh.Dr*F_new)./Mesh.hK;
-        pt1 = (E_new-E_old);
-        pt2 = Mesh.Dr*F_old;
-        pt3 = Mesh.Dr*F_new;
-        pt4 = (Mesh.Dr*F_old+Mesh.Dr*F_new)./Mesh.hK;
         if (iter==0)
             R=zeros(size(R));
         end
@@ -47,14 +43,11 @@ switch Viscosity.model
         cR=F_ext(2,2:Mesh.K+1)-F_ext(1,3:Mesh.K+2);
         J=max( abs(cL),abs(cR) ) ./ ( Mesh.hK/Mesh.N );
         
-        E_modal=Mesh.invV*E_new;
-        Norm_E=max(abs(E_new(:)-sum(E_modal(1,:))*1/sqrt(2)*1/Mesh.K));
-
+        Norm_E=1;
+        
         DD=max(max(abs(R)),abs(J))./Norm_E;
         mu_E=Viscosity.c_E.*(Mesh.hK/Mesh.N).^2.*DD; 
-        mu_piece=min(mu_E,mu_max);  
-
-        % save(sprintf("visc.it%d.mat", iter), "q", "qold", "E_old", "F_old", "E_new", "F_new", "local_wave_sp", "mu_max", "R", "F_ext", "cL", "cR", "J", "E_modal", "Norm_E", "DD", "mu_E", "mu_piece", "dt", "pt1", "pt2", "pt3", "pt4")
+        mu_piece=min(mu_E,mu_max);   
         
         
     case "MDH"

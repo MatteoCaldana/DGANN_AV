@@ -15,7 +15,7 @@ Mesh.invM  = inv(Mesh.M);
 Mesh.S     = Mesh.M*Mesh.Dr;
 Mesh.int_metric = 2*ones(Mesh.Np,1)*(1./Mesh.hK);
 Mesh.Imat  = eye(Mesh.Np);
-Mesh.AVG1D = sum(Mesh.M)/2; % Averaging array
+Mesh.avg1D = sum(Mesh.M)/2; % Averaging array
 
 % build coordinates of all the nodes
 fprintf('... generating nodes cordinates\n')

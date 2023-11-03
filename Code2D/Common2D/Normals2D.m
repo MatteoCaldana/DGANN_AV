@@ -1,7 +1,6 @@
 % Purpose : Compute outward pointing normals at elements faces and surface Jacobians
 
 xr = Mesh.Dr*Mesh.x; yr = Mesh.Dr*Mesh.y; xs = Mesh.Ds*Mesh.x; ys = Mesh.Ds*Mesh.y; 
-Mesh.xr = xr; Mesh.yr = yr; Mesh.xs = xs; Mesh.ys = ys;
 %Mesh.J  = xr.*ys-xs.*yr;
 
 % interpolate geometric factors to face nodes

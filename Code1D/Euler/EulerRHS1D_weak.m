@@ -1,4 +1,5 @@
 function rhsq = EulerRHS1D_weak(aux, gas_gamma, gas_const,mu,bc_cond,Mesh)
+
 % Purpose  : Evaluate RHS flux in 1D Euler with weak form
 
 rho = aux(:,:,1); mmt = aux(:,:,2); Ener = aux(:,:,3); 
@@ -66,24 +67,11 @@ frhol = fluxl(1,:); fmmtl = fluxl(2,:); fenerl = fluxl(3,:);
 
 
 % Compute rhs
-rhsu1         = Mesh.S'*frho - Mesh.S'*aux(:,:,1) - ...
-                (Mesh.Imat(:,Mesh.Np)*frhor(1,:)     - Mesh.Imat(:,1)*frhol(1,:)) + ...
-                (Mesh.Imat(:,Mesh.Np)*fluxr_aux(1,:) - Mesh.Imat(:,1)*fluxl_aux(1,:));
-
-pt1 = Mesh.S'*frho;
-pt2 = Mesh.S'*aux(:,:,1);
-pt3 = (Mesh.Imat(:,Mesh.Np)*frhor(1,:)     - Mesh.Imat(:,1)*frhol(1,:));
-pt4 = (Mesh.Imat(:,Mesh.Np)*fluxr_aux(1,:) - Mesh.Imat(:,1)*fluxl_aux(1,:));
-
-disp(max(abs(pt1-pt2-pt3+pt4-rhsu1), [], 'all'))
-
-rhsq(:,:,1)  = Mesh.int_metric.*(Mesh.invM*rhsu1);
-rhsu2         = Mesh.S'*fmmt - Mesh.S'*aux(:,:,2) - (Mesh.Imat(:,Mesh.Np)*fmmtr(1,:) - Mesh.Imat(:,1)*fmmtl(1,:)) + (Mesh.Imat(:,Mesh.Np)*fluxr_aux(2,:) - Mesh.Imat(:,1)*fluxl_aux(2,:));
-rhsq(:,:,2)  = Mesh.int_metric.*(Mesh.invM*rhsu2);
-rhsu3         = Mesh.S'*fener - Mesh.S'*aux(:,:,3) - (Mesh.Imat(:,Mesh.Np)*fenerr(1,:) - Mesh.Imat(:,1)*fenerl(1,:)) + (Mesh.Imat(:,Mesh.Np)*fluxr_aux(3,:) - Mesh.Imat(:,1)*fluxl_aux(3,:));
-rhsq(:,:,3)  = Mesh.int_metric.*(Mesh.invM*rhsu3);
-
-
-% save("rhs_weak.mat", "vel", "pre", "rho_ext", "mmt_ext", "Ener_ext", "fluxr_var", "fluxl_var", "aux", "aux_ext_1", "aux_ext_2", "aux_ext_3", "fluxr_aux", "fluxl_aux", "frho", "fmmt", "fener", "fluxr", "fluxl", "rhsu1", "rhsu2", "rhsu3", "rhsq", "pt1", "pt2", "pt3", "pt4")
+rhsu         = Mesh.S'*frho - Mesh.S'*aux(:,:,1) - (Mesh.Imat(:,Mesh.Np)*frhor(1,:) - Mesh.Imat(:,1)*frhol(1,:)) + (Mesh.Imat(:,Mesh.Np)*fluxr_aux(1,:) - Mesh.Imat(:,1)*fluxl_aux(1,:));
+rhsq(:,:,1)  = Mesh.int_metric.*(Mesh.invM*rhsu);
+rhsu         = Mesh.S'*fmmt - Mesh.S'*aux(:,:,2) - (Mesh.Imat(:,Mesh.Np)*fmmtr(1,:) - Mesh.Imat(:,1)*fmmtl(1,:)) + (Mesh.Imat(:,Mesh.Np)*fluxr_aux(2,:) - Mesh.Imat(:,1)*fluxl_aux(2,:));
+rhsq(:,:,2)  = Mesh.int_metric.*(Mesh.invM*rhsu);
+rhsu         = Mesh.S'*fener - Mesh.S'*aux(:,:,3) - (Mesh.Imat(:,Mesh.Np)*fenerr(1,:) - Mesh.Imat(:,1)*fenerl(1,:)) + (Mesh.Imat(:,Mesh.Np)*fluxr_aux(3,:) - Mesh.Imat(:,1)*fluxl_aux(3,:));
+rhsq(:,:,3)  = Mesh.int_metric.*(Mesh.invM*rhsu);
 
 return

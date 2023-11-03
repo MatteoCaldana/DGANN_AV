@@ -1,5 +1,5 @@
 
-n = 80;  // number of points on each boundary
+n = 120;  // number of points on each boundary
 
 Point(1) = {-2,-2,0};
 Point(2) = {2,-2,0};

@@ -1,7 +1,7 @@
 L = 1;// channel length
 H = 1; // height
 
-n = 5;  // number of points on each boundary
+n = 100;  // number of points on each boundary
 
 Point(1) = {0,0,0};
 Point(2) = {L,0,0};

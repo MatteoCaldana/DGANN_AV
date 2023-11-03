@@ -12,20 +12,6 @@ ScalarStartDisp2D;
 [Mesh.VX,Mesh.VY,Mesh.K,Mesh.Nv,Mesh.EToV,Mesh.BFaces,Mesh.PerBToB_map,Mesh.PerBFToF_map] ...
                                           = read_gmsh_file(Mesh.msh_file);
 
-[Mesh.VX,Mesh.VY,Mesh.K,Mesh.Nv,Mesh.EToV,Mesh.BFaces,Mesh.PerBToB_map,Mesh.PerBFToF_map] = ...
-    make_gmsh([min(Mesh.VX), min(Mesh.VY)], [max(Mesh.VX), max(Mesh.VY)], [1, 1] * sqrt(Mesh.Nv));
-
-% for i = 1:4
-%     ex = abs(Mesh.VX(Mesh.BFaces(100000+i)) - VX2(BFaces2(100000+i)));
-%     ey = abs(Mesh.VY(Mesh.BFaces(100000+i)) - VY2(BFaces2(100000+i)));
-%     fprintf("%d - %e %e\n", i, max(max(ex)), max(max(ey)))
-% end
-% 
-% for i = 2:3
-%     eB = Mesh.PerBToB_map(100000+i) - PerBToB_map2(100000+i) ;
-%     eF = Mesh.PerBFToF_map(100000+i) - PerBFToF_map2(100000+i) ;
-%     fprintf("%d - %e %e\n", i, max(eB), max(eF))
-% end
 % Generate necessary data structures
 StartUp2D;
 
@@ -61,7 +47,7 @@ Create_sfile_base2D;
 fprintf('... starting main solve\n')
 
 tic;
-[TSteps,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,Save_times] = Scalar2D(Q,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output);
+[Q_save,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,Save_times] = Scalar2D(Q,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output);
 sim_time = toc;
     
 %%

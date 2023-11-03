@@ -1,6 +1,6 @@
 L = 3;// channel length
 H = 3; // height
-h=0.5;
+h=0.02;
 
 Point(1) = {-L/2,-H/2,0,h};
 Point(2) = {L/2,-H/2,0,h};

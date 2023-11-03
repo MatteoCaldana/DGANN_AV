@@ -14,7 +14,7 @@
 % global x y NODETOL VX VY
 % global FinalTime model 
 % global tstamps % excluding the initial time. Must be >= 1.
-% global AVG2D AVG1D_1 AVG1D_2 AVG1D_3 % Averaging matrices
+% global AVG2D avg1D_1 avg1D_2 avg1D_3 % Averaging matrices
 % global ProjectFromNb2D CK % Needed for Fu-Shu indicator
 % global Indicator Limiter ind_var lim_var
 % global patch_alphas TVBM TVBnu dx CFL fixed_dt dx2

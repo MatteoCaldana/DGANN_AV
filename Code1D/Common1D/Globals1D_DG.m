@@ -10,7 +10,7 @@
 % global FinalTime CFL
 % global plot_iter save_soln save_ind
 % global ind_var lim_var %Important only for systems
-% global AVG1D % avergaing matrix
+% global avg1D % avergaing matrix
 % global ProjectFromLeft1D ProjectFromRight1D % Needed for Fu Shu indicator
 % 
 % %ck2D = [0.05, 0.1, 0.25, 0.5, 2.5 5]; 

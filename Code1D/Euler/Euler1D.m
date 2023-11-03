@@ -29,9 +29,8 @@ q_tmp=zeros(length(q(:)),3);
 
 
 % outer time step loop
-min_dt = 1e99;
-max_dt = 0.0;
 while(time<Problem.FinalTime)
+    
     %Compute artificial viscosity
     qold = reshape(q_tmp(:,1),Mesh.Np,Mesh.K,3);
     mu_piece = Euler1D_viscosity(q, qold, Viscosity, Problem, Mesh, dt, iter, NetVisc);
@@ -39,7 +38,6 @@ while(time<Problem.FinalTime)
     mu_vals=Scalar1D_smooth_viscosity(mu_piece,Mesh.x); 
     mu_vals=max(mu_vals,0);
     maxvisc=max(abs(mu_vals(:)));
-    mu_vals0 = mu_vals;
     
     if(Output.save_visc && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
         Visc_write1D(fid2,time,mu_vals);
@@ -56,9 +54,6 @@ while(time<Problem.FinalTime)
     %end
     lambda = c_sound + abs(q(:,:,2)./q(:,:,1));
     dt = Problem.CFL*1/(max(lambda(:))*Mesh.N^2/min(Mesh.hK)+maxvisc*Mesh.N^4/min(Mesh.hK)^2);
-    min_dt = min([dt, min_dt]);
-    max_dt = max([dt, max_dt]);
-    fprintf("%e, %e, %e\n", min_dt, dt, max_dt)
     
     if(time+dt>Problem.FinalTime)
         dt = Problem.FinalTime-time;
@@ -71,40 +66,39 @@ while(time<Problem.FinalTime)
     if strcmp(Problem.RK,'SSP3')
     
         % SSP RK Stage 1.
-        fprintf("Iter: %d", iter)
-        [rhsq1]  = EulerRHS1D_weak(q, Problem.gas_gamma, Problem.gas_const,mu_vals,Problem.bc_cond,Mesh);
-        q1      = q + dt*rhsq1;
+        [rhsq]  = EulerRHS1D_weak(q, Problem.gas_gamma, Problem.gas_const,mu_vals,Problem.bc_cond,Mesh);
+        q1      = q + dt*rhsq;
         
         %Limit fields
-        % ind1 = Tcells_Euler_type1D(q1,Problem,Mesh,Limit,Net);
-        % q1   = SlopeLimit_Euler_type1D(q1,ind1,Problem,Limit,Mesh);
-        % if(Output.save_ind && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
-        %     Tcell_write1D(fid,time+dt,xcen(ind1));
-        % end
+        ind1 = Tcells_Euler_type1D(q1,Problem,Mesh,Limit,Net);
+        q1   = SlopeLimit_Euler_type1D(q1,ind1,Problem,Limit,Mesh);
+        if(Output.save_ind && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
+            Tcell_write1D(fid,time+dt,xcen(ind1));
+        end
         
         
         % SSP RK Stage 2.
-        [rhsq2]  = EulerRHS1D_weak(q1, Problem.gas_gamma, Problem.gas_const,mu_vals,Problem.bc_cond,Mesh);
-        q2      = (3*q + (q1 + dt*rhsq2))/4.0;
+        [rhsq]  = EulerRHS1D_weak(q1, Problem.gas_gamma, Problem.gas_const,mu_vals,Problem.bc_cond,Mesh);
+        q2      = (3*q + (q1 + dt*rhsq))/4.0;
         
         %Limit fields
-        % ind2 = Tcells_Euler_type1D(q2,Problem,Mesh,Limit,Net);
-        % q2   = SlopeLimit_Euler_type1D(q2,ind2,Problem,Limit,Mesh);
-        % if(Output.save_ind && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
-        %     Tcell_write1D(fid,time+dt,xcen(ind2));
-        % end
+        ind2 = Tcells_Euler_type1D(q2,Problem,Mesh,Limit,Net);
+        q2   = SlopeLimit_Euler_type1D(q2,ind2,Problem,Limit,Mesh);
+        if(Output.save_ind && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
+            Tcell_write1D(fid,time+dt,xcen(ind2));
+        end
         
         
         % SSP RK Stage 3.
-        [rhsq3]  = EulerRHS1D_weak(q2,Problem.gas_gamma, Problem.gas_const,mu_vals,Problem.bc_cond,Mesh);
-        q       = (q + 2*(q2 + dt*rhsq3))/3.0;
+        [rhsq]  = EulerRHS1D_weak(q2,Problem.gas_gamma, Problem.gas_const,mu_vals,Problem.bc_cond,Mesh);
+        q       = (q + 2*(q2 + dt*rhsq))/3.0;
         
         %Limit fields
-        % ind3 = Tcells_Euler_type1D(q,Problem,Mesh,Limit,Net);
-        % q    = SlopeLimit_Euler_type1D(q,ind3,Problem,Limit,Mesh);
-        % if(Output.save_ind && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
-        %     Tcell_write1D(fid,time+dt,xcen(ind3));
-        % end
+        ind3 = Tcells_Euler_type1D(q,Problem,Mesh,Limit,Net);
+        q    = SlopeLimit_Euler_type1D(q,ind3,Problem,Limit,Mesh);
+        if(Output.save_ind && (mod(iter,Output.save_iter) == 0 || time+dt >= Problem.FinalTime))
+            Tcell_write1D(fid,time+dt,xcen(ind3));
+        end
         
     
     % 4th order low storage Runge-Kutta    
@@ -138,9 +132,6 @@ while(time<Problem.FinalTime)
         
         error('Time integration scheme not defined');
     end
-
-    q_this = reshape(q_tmp(:,2),Mesh.Np,Mesh.K,3);
-    % save(sprintf("dump%d.mat", iter), "qold", "mu_piece", "dt", "mu_vals0", "q_this", "q", "q1", "q2", "rhsq1", "rhsq2", "rhsq3")
     
     % Increment time and adapt timestep
     time = time+dt;   

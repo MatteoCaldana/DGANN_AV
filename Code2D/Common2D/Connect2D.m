@@ -74,10 +74,9 @@ if(UseMeshPerData)
         for j = 1:length(face_list1)
             
             f1                 = face_list1(j,:);
-            [elem_listA,~] = find(not(EToV - f1(1)));
-            [elem_listB,~] = find(not(EToV - f1(2)));
+            [elem_listA,dummy] = find(not(EToV - f1(1)));
+            [elem_listB,dummy] = find(not(EToV - f1(2)));
             elem1      = intersect(elem_listA,elem_listB);
-            size(elem1)
             
             lind1      = find(EToV(elem1,:)==f1(1));
             if(EToV(elem1,1+mod(lind1,Nfaces))==f1(2))
@@ -87,8 +86,8 @@ if(UseMeshPerData)
             end
             
             f2         = face_list2(abs(pflink(j)),:);
-            [elem_listA,~] = find(not(EToV - f2(1)));
-            [elem_listB,~] = find(not(EToV - f2(2)));
+            [elem_listA,dummy] = find(not(EToV - f2(1)));
+            [elem_listB,dummy] = find(not(EToV - f2(2)));
             elem2      = intersect(elem_listA,elem_listB);
             
             lind2      = find(EToV(elem2,:)==f2(1));

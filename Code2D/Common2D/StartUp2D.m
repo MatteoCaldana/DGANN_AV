@@ -5,7 +5,6 @@ Mesh.Nfp = N+1; Mesh.Np = (N+1)*(N+2)/2; Mesh.Nfaces=3; Mesh.NODETOL = 1e-12;
 % Compute nodal set
 fprintf('... generating nodes\n')
 [x,y] = Nodes2D(N); [Mesh.r,Mesh.s] = xytors(x,y);
-Mesh.xrs = x; Mesh.yrs = y;
 
 % Build reference element matrices
 fprintf('... generating basic matrices\n')
@@ -36,9 +35,9 @@ Lift2D;
 
 % Creating averaging matrices
 Mesh.AVG2D   = sum(Mesh.MassMatrix)/2;
-Mesh.AVG1D_1 = sum(Mesh.M1D_1)/2; 
-Mesh.AVG1D_2 = sum(Mesh.M1D_2)/2; 
-Mesh.AVG1D_3 = sum(Mesh.M1D_3)/2;
+Mesh.avg1D_1 = sum(Mesh.M1D_1)/2; 
+Mesh.avg1D_2 = sum(Mesh.M1D_2)/2; 
+Mesh.avg1D_3 = sum(Mesh.M1D_3)/2;
 
 % calculate geometric factors
 fprintf('... calculating geometric transform factors\n')
@@ -113,8 +112,5 @@ Coord_vector=[Mesh.x(:),Mesh.y(:),ones(length(Mesh.x(:)),1)];
 [rws,cls]=size(Coord_vector); i=repmat([1:rws]',3,1); tmp=[1:3:3*Mesh.K, 2:3:3*Mesh.K, 3:3:3*Mesh.K]; j=repmat(tmp,Mesh.Np,1); 
 Coord_matrix_DOF=sparse(i(:),j(:),Coord_vector(:));
 
-Mesh.coov_inv = Coord_matrix_V_inv;
-Mesh.coov_dof = Coord_matrix_DOF;
-
 % Store interpolation matrix
-Mesh.interp_matrix=Coord_matrix_DOF*(Coord_matrix_V_inv);
+Mesh.Interp_matrix=Coord_matrix_DOF*(Coord_matrix_V_inv);

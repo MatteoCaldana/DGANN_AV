@@ -1,4 +1,4 @@
-function [u] = Scalar1D(u,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output)
+function [u, memory] = Scalar1D(u,Problem,Mesh,Limit,Net,Viscosity,NetVisc,Output)
 
 % Purpose  : Integrate 1D Scalar equation until
 %            FinalTime starting with
@@ -32,7 +32,7 @@ end
 % Initialize solution at previous time step
 u_tmp=zeros(length(u(:)),3);
 
-
+memory = {u};
 % outer time step loop
 while(time<Problem.FinalTime)
     
@@ -139,7 +139,10 @@ while(time<Problem.FinalTime)
     
     if(mod(iter,Output.plot_iter) == 0 || time >= Problem.FinalTime)
         figure(1)
-        plot(Mesh.x(:),u(:),'b-','LineWidth',2)
+        yyaxis left
+        plot(Mesh.x(:),u(:),'bo-','LineWidth',2)
+        yyaxis right
+        plot(Mesh.x(:), mu_vals(:),'k--')
         xlabel('x')
         ylabel('u')
         title(['time = ',num2str(time)])
@@ -147,7 +150,15 @@ while(time<Problem.FinalTime)
         pause(0.1)
     end
     
-        
+    snapshot = struct;
+    snapshot.dt = dt;
+    snapshot.time = time;
+    snapshot.iter = iter;
+    snapshot.speed = speed;
+    snapshot.u = u;
+    snapshot.mu_piece = mu_piece;
+    snapshot.mu_vals = mu_vals;
+    memory{end+1} = snapshot;
 end
 
 if(Output.save_ind)
