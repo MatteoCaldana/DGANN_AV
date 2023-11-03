@@ -19,11 +19,11 @@ mesh_pert = 0.0;
 bc_cond   = {'D',1,'D',0.125;
              'D',0,'D',0.0;
              'D',1/(0.4),'D',0.1/(0.4)};  % For conserved variables
-FinalTime = 2;
+FinalTime = 1.8;
 CFL       = 0.1;
-K         = 200;
-N         = 1;
-RK        = 'LS54';
+K         = 20;
+N         = 4;
+RK        = 'SSP3';
 
 
 Indicator = 'NONE'; TVBM=1;

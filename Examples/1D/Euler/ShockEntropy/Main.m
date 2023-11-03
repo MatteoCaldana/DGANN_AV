@@ -22,10 +22,10 @@ bc_cond   = {'D',3.857143,'N',0.0;
              'D',10.141852,'D',0.0;
              'D',39.166661,'N',0.0};  % For conserved variables
 FinalTime = 1.8;
-CFL       = 0.1;
-K         = 256;
+CFL       = 0.25;
+K         = 512;
 N         = 1;
-RK        = 'LS54';
+RK        = 'SSP3';
 
 
 
@@ -37,10 +37,10 @@ lim_var        = "char_stencil";
 
 nn_visc_model = 'MLP_visc';
 %Visc_model = 'NONE';
-%Visc_model='EV'; c_E=1; c_max=0.5;
+Visc_model='EV'; c_E=1; c_max=0.5;
 %Visc_model='MDH'; c_A=2.5; c_k=0.2; c_max=0.5;
 %Visc_model='MDA'; c_max=1;
-Visc_model='NN';
+%Visc_model='NN';
 visc_var='density';
 
 

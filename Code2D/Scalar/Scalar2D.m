@@ -170,8 +170,8 @@ while (time<Problem.FinalTime)
     end
     
     % Increment time and timestep
-    time   = time+dt;
-    tstep  = tstep +1;
+    time   = time+dt
+    tstep  = tstep +1
     
     % Increment saved variables
     Q_tmp(:,1)=Q_tmp(:,2); Q_tmp(:,2)=Q(:);

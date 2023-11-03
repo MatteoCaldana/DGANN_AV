@@ -117,7 +117,7 @@ for i=1:Mesh.K
     for j=1:3
         A = [c2cx(Kind(j)) , c2cx(Kind(j+1)); c2cy(Kind(j)) , c2cy(Kind(j+1))];
         b = [cfx(Kind(j)) ; cfy(Kind(j))];
-        alphas = solve2x2(A, b);
+        alphas = A \ b;
         if(alphas(1) < -eps || alphas(2) < -eps)
 %             if(~(alphas(1) >= -eps && alphas(2) >= -eps))
 %                 A
@@ -125,7 +125,7 @@ for i=1:Mesh.K
 %                 alphas
 %             end
             A = [c2cx(Kind(j)) , c2cx(Kind(j+2)); c2cy(Kind(j)) , c2cy(Kind(j+2))];
-            alphas = solve2x2(A, b);
+            alphas = A \ b;
             assert((alphas(1) >= -eps & alphas(2) >= -eps),...
                 'The mesh traingulation is not appropriate');
             Mesh.patch_alphas(j,:,i) = [alphas;Kind(j+2)];
