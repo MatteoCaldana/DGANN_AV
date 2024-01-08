@@ -1,3 +1,4 @@
+function [] = CleanUp2D()
 % Clean up various processes
 if(exist('Net.NN_Dir','var'))
     if(~isempty(Net.NN_Dir))
@@ -8,5 +9,5 @@ if(exist('Net.NN_Dir','var'))
         end
     end
 end
-
+end
 

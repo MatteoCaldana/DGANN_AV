@@ -1,4 +1,4 @@
-%function BuildBCMaps2D()
+function Mesh = BuildBCMaps2D(Mesh)
 
 % function BuildMaps2DBC
 % Purpose: Segregation of boundary face maps based on face tag
@@ -25,3 +25,4 @@ for i=1:length(Mesh.BC_ess_flags(:,1))
 end
 
 %return;
+end

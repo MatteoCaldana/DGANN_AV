@@ -1,6 +1,6 @@
 function Qlim = MRSLimiter2D(Q,QG,ind)
 
-Globals2D_DG;
+% Globals2D_DG;
 
 alphah =@(h) 0*h.^(1.5);
 phif   =@(y) min(abs(y)/1.1,ones(size(y)));

@@ -1,4 +1,4 @@
-CleanUp1D;
+CleanUp1D();
 
 clc
 clear all

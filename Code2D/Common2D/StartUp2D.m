@@ -30,8 +30,7 @@ Mesh.Fx  = Mesh.x(Mesh.Fmask(:), :); Mesh.Fy = Mesh.y(Mesh.Fmask(:), :);
 
 % Create surface integral terms
 fprintf('... generating face matrices\n')
-% [LIFT,M1D_1, M1D_2, M1D_3, facemid1, facemid2, facemid3] = Lift2D();
-Lift2D;
+Mesh = Lift2D(Mesh);
 
 % Creating averaging matrices
 Mesh.AVG2D   = sum(Mesh.MassMatrix)/2;
@@ -45,13 +44,12 @@ fprintf('... calculating geometric transform factors\n')
 
 % calculate geometric factors
 fprintf('... generating face normal data\n')
-%[Mesh.nx, Mesh.ny, Mesh.sJ] = Normals2D();
-Normals2D
+Mesh = Normals2D(Mesh);
 Mesh.Fscale = Mesh.sJ./(Mesh.J(Mesh.Fmask,:));
 
 % calculate incircle radius for each triangle
 fprintf('... calculating radius of incircles\n')
-xscale2D;
+Mesh = xscale2D(Mesh);
 
 % Build connectivity matrix
 %[EToE, EToF] = tiConnect2D(EToV);
@@ -62,12 +60,12 @@ fprintf('... creating connectivity matrices\n')
 
 % Build ghost elements for non-periodic boundary faces
 fprintf('... generating additional geometric data and ghost elements\n')
-GetGeomData2D;
+Mesh = GetGeomData2D(Mesh);
                              
 %%                             
 % Build connectivity maps
 fprintf('... building face maps\n')
-BuildMaps2D;
+Mesh = BuildMaps2D(Mesh);
 
 % Compute weak operators (could be done in preprocessing to save time)'
 % NOTE that there is a transponse in the weak formulation, thus the

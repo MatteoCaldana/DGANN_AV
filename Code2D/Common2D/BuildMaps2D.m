@@ -1,4 +1,4 @@
-% function [mapM, mapP, vmapM, vmapP, vmapB, mapB] = BuildMaps2D()
+function [Mesh] = BuildMaps2D(Mesh)
 % Purpose: Connectivity and boundary tables in the K # of Np elements
 
 
@@ -90,3 +90,4 @@ Mesh.vmapP = reshape(Mesh.vmapP, Mesh.Nfp*Mesh.Nfaces, Mesh.K);
 
 
 
+end

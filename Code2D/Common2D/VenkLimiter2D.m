@@ -1,6 +1,6 @@
 function Qlim = VenkLimiter2D(Q,QG,ind)         
 
-Globals2D_DG;
+% Globals2D_DG;
 
 Qlim = Q;
 if(~isempty(ind))

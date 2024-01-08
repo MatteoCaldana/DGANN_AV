@@ -1,5 +1,5 @@
 % Create BC_flag
-CreateBC_Flags2D;
+BC_flags = CreateBC_Flags2D(BC_cond);
 
 % Check parameters
 EulerCheckParam2D;
@@ -18,13 +18,13 @@ StartUp2D;
 % Get essential BC_flags
 Mesh.BC_ess_flags = BuildBCKeys2D(Mesh.BC_flags,Mesh.BC_ENUM.Periodic);
 
-BuildBCMaps2D;
+Mesh = BuildBCMaps2D(Mesh);
 
 %% compute initial condition (time=0)
 Q = feval(Problem.InitialCond, Mesh.x, Mesh.y, Problem.gas_gamma, Problem.gas_const);
     
 % Find relative path
-Find_relative_path;
+REL_PATH = Find_relative_path();
     
 % Extract MLP weights, biases and other parameters
 if(strcmp(Limit.Indicator,'NN'))
@@ -41,7 +41,7 @@ else
 end
     
 % Creating save file base names
-Create_sfile_base2D;
+data_fname = Create_sfile_base2D(Problem, Limit, Viscosity);
     
 %% Solve Problem
 fprintf('... starting main solve\n')
@@ -51,12 +51,12 @@ sim_time = toc;
     
 %% Saving data
 if(Output.save_soln)
-   Euler_Save2D;
+    Euler_Save2D(Mesh, Save_times,Q_save,ind_save,visc_save,ptc_hist,pnc_hist,maxvisc_hist,t_hist,sim_time,gas_gamma,gas_const, data_fname);
 end
     
 % Clean up processes
 fprintf('... cleaning up\n')
-CleanUp2D;
+CleanUp2D();
 
 fprintf('------------ Solver has finished -------------\n')
 

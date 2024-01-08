@@ -1,3 +1,4 @@
+function Mesh = Normals2D(Mesh)
 % Purpose : Compute outward pointing normals at elements faces and surface Jacobians
 
 xr = Mesh.Dr*Mesh.x; yr = Mesh.Dr*Mesh.y; xs = Mesh.Ds*Mesh.x; ys = Mesh.Ds*Mesh.y; 
@@ -21,4 +22,4 @@ Mesh.nx(fid3, :) = -fys(fid3, :); Mesh.ny(fid3, :) =  fxs(fid3, :);
 
 % normalise
 Mesh.sJ = sqrt(Mesh.nx.^2+Mesh.ny.^2); Mesh.nx = Mesh.nx./Mesh.sJ; Mesh.ny = Mesh.ny./Mesh.sJ;
-
+end

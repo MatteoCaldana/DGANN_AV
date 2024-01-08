@@ -1,6 +1,6 @@
 %%
 
-CleanUp2D;
+CleanUp2D();
 
 close all
 clear all

@@ -1,3 +1,4 @@
+function data_fname = Create_sfile_base2D(Problem, Limit, Viscosity)
 % Create save file base name (saved in th same folder)
 
 data_fname = sprintf('%s2D_%s_P%d',Problem.model,Problem.test_name,Mesh.N);
@@ -45,4 +46,5 @@ elseif(strcmp(Viscosity.model,'NN'))
     data_fname = sprintf('%s_VISC_%s',data_fname,Viscosity.model);
 else
     error('Viscosity model %s not available',Viscosity.model);
+end
 end

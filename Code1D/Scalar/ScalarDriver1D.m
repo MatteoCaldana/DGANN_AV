@@ -5,13 +5,13 @@ ScalarCheckParam1D;
 ScalarStartDisp1D;
 
 % Find relative path
-Find_relative_path;
+REL_PATH = Find_relative_path();
 
 % Generate simple mesh
 [Mesh.Nv, Mesh.VX, Mesh.hK] = MeshGen1D(Mesh.bnd_l,Mesh.bnd_r,Mesh.K, Mesh.mesh_pert);
 
 % generate various matrix operators and maps
-StartUp1D;
+Mesh = StartUp1D(Mesh);
 
 % Extract MLP weights, biases and other parameters for troubled cells
 if(strcmp(Limit.Indicator,'NN'))
@@ -59,7 +59,7 @@ end
 
 % Clean up
 fprintf('... cleaning up\n')
-CleanUp1D;
+CleanUp1D();
 
 fprintf('------------ Solver has finished -------------\n')
 

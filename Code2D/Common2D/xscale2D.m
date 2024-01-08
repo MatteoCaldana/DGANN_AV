@@ -1,3 +1,4 @@
+function Mesh = xscale2D(Mesh)
 % Purpose : Compute inscribed circle diameter as characteristic
 %           for grid to choose timestep
 
@@ -20,3 +21,4 @@ Mesh.dx = Area./sper;
 
 % Compute scale using radius of circumscribed circle
 Mesh.dx2 = len1.*len2.*len3./Area/4;
+end

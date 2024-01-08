@@ -1,5 +1,5 @@
 % Remove NN diretory paths if they still exist
-CleanUp2D;
+CleanUp2D();
 
 close all
 clear all

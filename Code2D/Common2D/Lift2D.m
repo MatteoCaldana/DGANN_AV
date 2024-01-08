@@ -1,3 +1,4 @@
+function Mesh = Lift2D(Mesh)
 % Purpose  : Compute surface to volume lift term for DG formulation
 
 Emat = zeros(Mesh.Np, Mesh.Nfaces*Mesh.Nfp);
@@ -28,3 +29,4 @@ Mesh.facemid3 = Vmid1D(1,:)/V1D;
 Mesh.LIFT = Mesh.V*(Mesh.V'*Emat);
 
 %LIFT,M1D_1, M1D_2, M1D_3, facemid1, facemid2, facemid3
+end

@@ -1,3 +1,4 @@
+function [] = Scalar_Save2D(Mesh, Save_times,Q_save,ind_save,visc_save,ptc_hist,maxvisc_hist,t_hist,sim_time, data_fname)
 % Saving plots to files
 
 % Make solution dirctories if not existing
@@ -12,4 +13,5 @@ Mass = Mesh.MassMatrix;
 
 save(fname,'x','y','invV','J','Mass','Save_times','Q_save','ind_save','visc_save','ptc_hist','maxvisc_hist','t_hist','sim_time')
 
+end
 

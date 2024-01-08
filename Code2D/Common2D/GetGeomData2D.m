@@ -1,3 +1,4 @@
+function Mesh = GetGeomData2D(Mesh)
 % Find neighbors in patch
 E1 = Mesh.EToE(:,1)'; E2 = Mesh.EToE(:,2)'; E3 = Mesh.EToE(:,3)';
 
@@ -150,7 +151,4 @@ for i=1:3
     [idM, idP] = find(sqrt(abs(D))<eps);
     Mesh.MMAP(:,i) = idM;
 end
-
-
-
-
+end

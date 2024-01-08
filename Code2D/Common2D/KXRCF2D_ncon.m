@@ -3,7 +3,7 @@ function ind = KXRCF2D_ncon(Q,QG)
 % Purpose: find all the troubled-cells for variable Q using KXRCF 
 % indicator. We exclude almost constant cells.
 
-Globals2D_DG;
+% Globals2D_DG;
 
 eps = 1e-10;
 

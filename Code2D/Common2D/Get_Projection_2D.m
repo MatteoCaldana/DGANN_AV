@@ -1,7 +1,7 @@
 function ProjectFromNb2D = Get_Projection_2D
 % Purspose: Build Projection maps (needed for Shu-Fu indicator)
 
-Globals2D_DG;
+% Globals2D_DG;
 
 ProjectFromNb2D  = zeros(Np,Np,3,K);
 

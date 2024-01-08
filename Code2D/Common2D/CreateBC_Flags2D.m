@@ -1,8 +1,7 @@
+function BC_flags = CreateBC_Flags2D(BC_cond)
 [m,n] = size(BC_cond);
 
 BC_flags = zeros(m,n);
-
-In = 1; Out = 2; Slip = 3; Far = 4; Dirichlet = 5; Sym = 6; Periodic=7;
 
 BC_ENUM.In        = 1;
 BC_ENUM.Out       = 2;
@@ -45,3 +44,4 @@ for i=1:m
     end
 end
             
+end
